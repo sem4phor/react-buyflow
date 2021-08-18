@@ -20,7 +20,12 @@ const AgeStep: React.FC<AgeStepProps> = ({ onSubmit }) => {
           value={age}
         ></input>
       </div>
-      <button onClick={() => onSubmit({ age })}>Next</button>
+      <button
+        onClick={() => onSubmit({ age })}
+        disabled={!age}
+      >
+        Next
+      </button>
     </>
   )
 }

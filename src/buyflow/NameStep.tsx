@@ -33,7 +33,12 @@ const NameStep: FC<NameStepProps> = ({ onSubmit }) => {
           value={lastName}
         />
       </div>
-      <button onClick={() => onSubmit({ firstName, lastName })}>Next</button>
+      <button
+        onClick={() => onSubmit({ firstName, lastName })}
+        disabled={!firstName ||!lastName}
+      >
+        Next
+      </button>
     </>
   )
 }

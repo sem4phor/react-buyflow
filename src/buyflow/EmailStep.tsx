@@ -20,7 +20,12 @@ const EmailStep: React.FC<EmailStepProps> = ({ onSubmit }) => {
           value={email}
         ></input>
       </div>
-      <button onClick={() => onSubmit({ email })}>Next</button>
+      <button
+        onClick={() => onSubmit({ email })}
+        disabled={!email}
+      >
+        Next
+      </button>
     </>
   )
 }
