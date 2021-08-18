@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
 interface EmailStepProps {
-  cb: (field: 'email', value: string) => void
+  onSubmit: (data :{
+    email: string
+  }) => void
 }
 
-const EmailStep: React.FC<EmailStepProps> = (props) => {
+const EmailStep: React.FC<EmailStepProps> = ({ onSubmit }) => {
   const [email, setEmail] = useState('')
   return (
     <>
@@ -18,7 +20,7 @@ const EmailStep: React.FC<EmailStepProps> = (props) => {
           value={email}
         ></input>
       </div>
-      <button onClick={() => props.cb('email', email)}>Next</button>
+      <button onClick={() => onSubmit({ email })}>Next</button>
     </>
   )
 }

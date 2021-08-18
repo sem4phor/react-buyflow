@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 
 interface AgeStepProps {
-  cb: (field: 'age', value: number) => void
+  onSubmit: (data :{
+    age: number
+  }) => void
 }
 
-const AgeStep: React.FC<AgeStepProps> = (props) => {
+const AgeStep: React.FC<AgeStepProps> = ({ onSubmit }) => {
   const [age, setAge] = useState(0)
   return (
     <>
@@ -18,7 +20,7 @@ const AgeStep: React.FC<AgeStepProps> = (props) => {
           value={age}
         ></input>
       </div>
-      <button onClick={() => props.cb('age', age)}>Next</button>
+      <button onClick={() => onSubmit({ age })}>Next</button>
     </>
   )
 }

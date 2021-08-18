@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import AgeStep from './AgeStep'
 import EmailStep from './EmailStep'
+import NameStep from './NameStep'
 import SummaryStep from './SummaryStep'
 import GsStepper from '../components/GsStepper'
 import useSteps from '../hooks/useSteps'
@@ -17,9 +18,11 @@ const PRODUCT_IDS_TO_NAMES = {
   [ProductIds.devIns]: 'Developer Insurance',
 }
 
-interface FormData {
+export interface FormData {
   email: string
   age: number
+  firstName: string
+  lastName: string
 }
 
 const Buyflow: React.FC<BuyflowProps> = (props) => {
@@ -27,21 +30,27 @@ const Buyflow: React.FC<BuyflowProps> = (props) => {
   const [collectedData, updateData] = useState<FormData>({
     email: '',
     age: 0,
+    firstName: '',
+    lastName: ''
   })
 
-  const getStepCallback = (field: keyof FormData, value: any) => {
-    updateData({ ...collectedData, [field]: value })
+  const onNext = (data: Partial<FormData>) => {
+    updateData({ ...collectedData, ...data })
     nextStep()
   }
 
   const steps = [
     {
+      id: 'name',
+      content: <NameStep onSubmit={onNext} />
+    },
+    {
       id: 'email',
-      content: <EmailStep cb={getStepCallback} />
+      content: <EmailStep onSubmit={onNext} />
     },
     {
       id: 'age',
-      content: <AgeStep cb={getStepCallback} />
+      content: <AgeStep onSubmit={onNext} />
     },
     {
       id: 'summary',
