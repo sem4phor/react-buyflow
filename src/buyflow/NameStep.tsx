@@ -16,6 +16,7 @@ const NameStep: FC<NameStepProps> = ({ onSubmit }) => {
       <div>
         First Name:
         <input
+          data-testid="first-name"
           type="text"
           onChange={({ target: { value } }) => {
             setFirstName(value)
@@ -26,6 +27,7 @@ const NameStep: FC<NameStepProps> = ({ onSubmit }) => {
       <div>        
         Last Name:
         <input
+          data-testid="last-name"
           type="text"
           onChange={({ target: { value } }) => {
             setLastName(value)
