@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import AgeStep from './AgeStep'
 import EmailStep from './EmailStep'
 import SummaryStep from './SummaryStep'
+import GsStepper from '../components/GsStepper'
+import useSteps from '../hooks/useSteps'
 
 interface BuyflowProps {
   productId: ProductIds
@@ -15,26 +17,47 @@ const PRODUCT_IDS_TO_NAMES = {
   [ProductIds.devIns]: 'Developer Insurance',
 }
 
+interface FormData {
+  email: string
+  age: number
+}
+
 const Buyflow: React.FC<BuyflowProps> = (props) => {
-  const [currentStep, setStep] = useState('email')
-  const [collectedData, updateData] = useState({
+
+  const [collectedData, updateData] = useState<FormData>({
     email: '',
     age: 0,
   })
-  const getStepCallback = (nextStep: string) => (field: string, value: any) => {
+
+  const getStepCallback = (field: keyof FormData, value: any) => {
     updateData({ ...collectedData, [field]: value })
-    setStep(nextStep)
+    nextStep()
   }
+
+  const steps = [
+    {
+      id: 'email',
+      content: <EmailStep cb={getStepCallback} />
+    },
+    {
+      id: 'age',
+      content: <AgeStep cb={getStepCallback} />
+    },
+    {
+      id: 'summary',
+      content: <SummaryStep collectedData={collectedData} />
+    },
+  ];
+
+  const {
+    currentStep,
+    nextStep,
+  } = useSteps(steps.length);
+  
   return (
     <>
       <h4>Buying {PRODUCT_IDS_TO_NAMES[props.productId]}</h4>
-      {(currentStep === 'email' && <EmailStep cb={getStepCallback('age')} />) ||
-        (currentStep === 'age' && (
-          <AgeStep cb={getStepCallback('summary')} />
-        )) ||
-        (currentStep === 'summary' && (
-          <SummaryStep collectedData={collectedData} />
-        ))}
+      <GsStepper steps={steps} activeStep={currentStep} />
     </>
   )
 }

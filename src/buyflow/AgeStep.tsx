@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 interface AgeStepProps {
-  cb: (field: string, value: number) => void
+  cb: (field: 'age', value: number) => void
 }
 
 const AgeStep: React.FC<AgeStepProps> = (props) => {

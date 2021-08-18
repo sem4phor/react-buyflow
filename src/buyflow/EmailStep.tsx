@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 
 interface EmailStepProps {
-  cb: (field: string, value: string) => void
+  cb: (field: 'email', value: string) => void
 }
 
 const EmailStep: React.FC<EmailStepProps> = (props) => {
